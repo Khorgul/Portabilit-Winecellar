@@ -1,27 +1,27 @@
 package com.example.flori.winecellar;
-
-import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.Shape;
-import android.widget.Button;
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 /**
  * Created by flori on 16/01/2018.
  */
 
-public class ClassCaveIHM {
+public class ClassCaveIHM extends Activity {
 
-    private Button Cave;
-    private TextView Nom;
-    private TextView QteVin;
-    private TextView Rouge;
-    private TextView Rose;
-    private TextView Blanc;
-    private Shape RedOval= new OvalShape();
-    private Shape PinkOval= new OvalShape();
-    private Shape WhiteOval= new OvalShape();
+    TextView Red;
+    TextView White;
+    TextView Pink;
+    TextView Nb;
+    TextView Name;
+    TextView Date;
 
-    public ClassCaveIHM(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.cave_main);
     }
 
 }
