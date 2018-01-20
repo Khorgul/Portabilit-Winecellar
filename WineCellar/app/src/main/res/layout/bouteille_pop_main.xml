@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout android:id="@+id/rl_layout"
+    android:background="#4b494b"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <EditText android:id="@+id/appellationVinEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Appellation"/>
+
+        <Spinner android:id="@+id/cepageSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:spinnerMode="dialog"
+            android:text="Cepage"/>
+
+        <Spinner android:id="@+id/regionSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:text="Region"
+            android:spinnerMode="dialog"/>
+
+            <Spinner android:id="@+id/couleurSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
+                android:text="Region"
+                android:spinnerMode="dialog"/>
+
+    <Button
+        android:id="@+id/validButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:spinnerMode="dialog"
+        android:text="Valid" />
+
+</RelativeLayout>

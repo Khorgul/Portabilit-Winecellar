@@ -21,6 +21,13 @@
         </activity>
         <activity android:name=".ClassNewCavePopUp"
             android:theme="@style/AppTheme.PopupCustomTheme"></activity>
+        <activity android:name=".ActivityBouteilleMenu"
+            android:label="Cellarium"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ActivityCaveMenu">
+        </activity>
+        <activity android:name=".ClassNewBouteillePopUp"
+            android:theme="@style/AppTheme.PopupCustomTheme"></activity>
     </application>
 
 </manifest>
