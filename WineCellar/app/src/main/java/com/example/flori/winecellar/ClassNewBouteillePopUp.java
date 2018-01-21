@@ -22,13 +22,15 @@ public class ClassNewBouteillePopUp extends AppCompatActivity{
     private Spinner Region;
     private Spinner Couleur;
     private Button btn;
+    private int caveId;
 
     DataBaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cave_pop_main);
+        setContentView(R.layout.bouteille_pop_main);
+        caveId=getIntent().getIntExtra(ActivityBouteilleMenu.KEY_CAVE, 1);
 
         db = new DataBaseHandler(getApplicationContext());
 
@@ -38,7 +40,7 @@ public class ClassNewBouteillePopUp extends AppCompatActivity{
         int width=dm.widthPixels;
         int height=dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8), (int)(height*.4));
+        getWindow().setLayout((int)(width*.8), (int)(height*.6));
 
         Apl = findViewById(R.id.appellationVinEditText);
         Cep = findViewById(R.id.cepageSpinner);
@@ -66,7 +68,7 @@ public class ClassNewBouteillePopUp extends AppCompatActivity{
                 String name = Apl.getText().toString();
                 if(!(name.isEmpty()))
                 {
-                    db.createWine(name, Cep.getSelectedItem().toString(), Region.getSelectedItem().toString(), Couleur.getSelectedItem().toString());
+                    db.createWine(name, Cep.getSelectedItem().toString(), Region.getSelectedItem().toString(), Couleur.getSelectedItem().toString(), caveId);
                     finish();
                 }
             }

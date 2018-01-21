@@ -238,15 +238,30 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         //CEPAGE
         ContentValues values = new ContentValues();
         values.put("nomcepage", "Abourjou");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "Arrufiac");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "Blanqueiro");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "Biancu gentille");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "Calitor");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "César");
+        db.insert("cepage", null, values);
+
+        values = new ContentValues();
         values.put("nomcepage", "Chaselas");
-
-        // insert row
-
         db.insert("cepage", null, values);
 
 
@@ -357,7 +372,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public String getCouleur(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select couleur from vin where idvin like "+id;
+        String selectQuery = "Select idvin, couleur from vin where idvin like '"+id+"'";
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
@@ -370,6 +385,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return null;
     }
 
@@ -377,7 +393,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public String getNomCepage(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select nomcepage from cepage where idcepage like "+id;
+        String selectQuery = "Select idcepage, nomcepage from cepage where idcepage = "+id;
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
@@ -390,13 +406,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return null;
     }
 
     public int getIdCepage(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select idcepage from cepage where nomcepage like "+id;
+        String selectQuery = "Select nomcepage, idcepage from cepage where nomcepage like '"+id+"'";
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
@@ -409,6 +426,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return 1;
     }
 
@@ -416,7 +434,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public String getNomRegion(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select nomregion from region where idregion like "+id;
+        String selectQuery = "Select idregion, nomregion from region where idregion ="+id;
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
@@ -429,6 +447,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return null;
     }
 
@@ -436,19 +455,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public int getIdRegion(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select idregion from region where nomregion like "+id;
+        String selectQuery = "Select nomregion, idregion from region where nomregion like '"+id+"'";
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
         if(c.moveToFirst()) {
             do {
                 {
-                    if(c.getString(c.getColumnIndex("nomregion"))== id) {
+                    if(c.getString(c.getColumnIndex("nomregion")).equals(id)) {
                         return c.getInt(c.getColumnIndex("idregion"));
                     }
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return 1;
     }
 
@@ -456,7 +476,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public String getNomAppellation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select nomappellation from appellation where idapp like "+id;
+        String selectQuery = "Select idapp, nomappellation from appellation where idapp = "+id;
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
@@ -469,25 +489,27 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return null;
     }
 
     public int getIdAppellation(String id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "Select idapp from appellation where nomappellation like "+id;
+        String selectQuery = "Select nomappellation, idapp from appellation where nomappellation like '"+id+"'";
         Cursor c = db.rawQuery(selectQuery, null);
 
         //looping through all rows and checking name
         if(c.moveToFirst()) {
             do {
                 {
-                    if(c.getString(c.getColumnIndex("nomappellation"))== id) {
+                    if(c.getString(c.getColumnIndex("nomappellation")).equals(id)) {
                         return c.getInt(c.getColumnIndex("idapp"));
                     }
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return 1;
     }
 
@@ -508,7 +530,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public Cave getCave(String nom)
     {
         Log.d("NOM", nom);
-        String selectQuery = "SELECT idcave FROM CAVEVIN WHERE nomcave like '" + nom+"'";
+        String selectQuery = "SELECT nomcave, idcave FROM CAVEVIN WHERE nomcave like '" + nom+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -517,21 +539,23 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if(c.moveToFirst()) {
             do {
                 {
-                    if(c.getString(c.getColumnIndex("nomcave"))== nom) {
+                    if(c.getString(c.getColumnIndex("nomcave")).equals(nom)) {
                         Cave a = new Cave(c.getString(c.getColumnIndex("nomcave")));
                         a.setId(c.getInt(c.getColumnIndex("idcave")));
+                        c.close();
                         return a;
                     }
                 }
             } while(c.moveToNext());
         }
+        c.close();
         return new Cave(nom);
     }
 
     //Getting Cavename
     public Cave getCave(int id)
     {
-        String selectQuery = "SELECT idcave, nomcave FROM CAVEVIN WHERE idcave like " + id;
+        String selectQuery = "SELECT idcave, nomcave FROM CAVEVIN WHERE idcave = " + id;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -548,13 +572,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 }
             } while(c.moveToNext());
         }
+        c.close();
+        Log.d("CAVE", "NULL");
         return null;
     }
 
     //Getting CaveId
     public int getCaveId(String nom)
     {
-        String selectQuery = "SELECT idcave FROM CAVEVIN WHERE nomcave like '" + nom+"'";
+        String selectQuery = "SELECT nomcave, idcave FROM CAVEVIN WHERE nomcave like '" + nom+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -562,31 +588,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         //looping through all rows and checking name
         if(c.moveToFirst()) {
             do {
-                {
-                    if(c.getString(c.getColumnIndex("nomcave"))==nom)
+                Log.d("getCaveId", "nomcave = "+c.getString(c.getColumnIndex("nomcave"))+", nom = "+nom);
+                    if(c.getString(c.getColumnIndex("nomcave")).equals(nom))
                         return c.getInt(c.getColumnIndex("idcave"));
-                }
             } while(c.moveToNext());
         }
-        return 1;
-    }
-
-    public int getBouteilleId(int nom)
-    {
-        String selectQuery = "SELECT idbouteille FROM bouteille WHERE idvin like " + nom;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        //looping through all rows and checking name
-        if(c.moveToFirst()) {
-            do {
-                {
-                    if(c.getInt(c.getColumnIndex("idvin"))==nom)
-                        return c.getInt(c.getColumnIndex("idbouteille"));
-                }
-            } while(c.moveToNext());
-        }
+        c.close();
+        Log.d("getCaveId", "nom cherché = "+nom);
         return 1;
     }
 
@@ -602,18 +610,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 Cave t = new Cave((c.getString((c.getColumnIndex("nomcave")))));
-
+                t.setId(c.getInt(c.getColumnIndex("idcave")));
                 // adding to tags list
                 caves.add(t);
             } while (c.moveToNext());
         }
+        c.close();
         return caves;
     }
 
     //Getting all Vins
     public ArrayList<Vin> getAllVin(Cave cave){
         ArrayList<Vin> Vins = new ArrayList<Vin>();
-        String selectQuery = "SELECT  idbouteille FROM contenir where idcave like " + cave.getId();
+        String selectQuery = "SELECT  idcave, idbouteille, quantite FROM contenir where idcave = " + cave.getId();
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -621,33 +630,35 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-                if(c.getInt(c.getColumnIndex("idbouteille"))==cave.getId()) {
+                if(c.getInt(c.getColumnIndex("idcave"))==cave.getId()) {
                     Vin v = new Vin();
                     v.setIdbouteille(c.getInt(c.getColumnIndex("idbouteille")));
+                    v.setQte(c.getInt(c.getColumnIndex("quantite")));
+                    Log.d("GetAllVin", "idbouteille = "+String.valueOf(v.getIdbouteille()));
 
-                    String selectQuery2 = "SELECT  idvin FROM bouteille where idbouteille like " +
-                    v.getIdbouteille();
-                    Cursor c1 = db.rawQuery(selectQuery, null);
-                    if (c.moveToFirst()) {
+                    String selectQuery2 = "SELECT  idbouteille, idvin FROM bouteille where idbouteille = " + v.getIdbouteille();
+                    Cursor c1 = db.rawQuery(selectQuery2, null);
+                    if (c1.moveToFirst()) {
 
                         do{
-                            if(c.getInt(c.getColumnIndex("idbouteille"))==v.getIdbouteille())
+                            if(c1.getInt(c1.getColumnIndex("idbouteille"))==v.getIdbouteille())
                             {
-                                v.setIdvin(c.getInt(c.getColumnIndex("idvin")));
+                                Log.d("GetAllVin", "idvin = "+String.valueOf(v.getIdvin()));
+                                v.setIdvin(c1.getInt(c1.getColumnIndex("idvin")));
                                 v.setAppellation(getNomAppellation(v.getIdvin()));
                                 v.setCepage(getNomCepage(v.getIdvin()));
                                 v.setRegion(getNomRegion(v.getIdvin()));
                                 v.setCouleur(getCouleur(v.getIdvin()));
                             }
-                        } while (c.moveToNext());
+                        } while (c1.moveToNext());
                     }
-
-
+                    c1.close();
                     // adding to tags list
                     Vins.add(v);
                 }
             } while (c.moveToNext());
         }
+        c.close();
         return Vins;
     }
 
@@ -666,6 +677,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 reg.add(t);
             } while (c.moveToNext());
         }
+        c.close();
         return reg;
     }
 
@@ -679,18 +691,18 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 String t = c.getString((c.getColumnIndex("nomcepage")));
-
+                Log.d("ArrayCep", t);
                 // adding to tags list
                 reg.add(t);
             } while (c.moveToNext());
         }
+        c.close();
         return reg;
     }
 
-    public Vin createWine(String name, String cep, String reg, String coul) {
+    public Vin createWine(String name, String cep, String reg, String coul, int idcave) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase sc = this.getReadableDatabase();
 
         int ce=getIdCepage(cep);
         int re=getIdRegion(reg);
@@ -701,24 +713,34 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         // insert row
 
-        db.insert("appellation", null, values);
+        long nb = db.insert("appellation", null, values);
 
         int apl=getIdAppellation(name);
+
+        Log.d("createWine", "apl : "+nb+" // "+apl);
 
         values = new ContentValues();
         values.put("couleur", coul);
         values.put("idcepage", ce);
         values.put("idapp", apl);
 
-        db.insert("vin", null, values);
+        nb = db.insert("vin", null, values);
 
         int vin = getIdVin(apl);
+
+        Log.d("createWine", "vin : "+nb+" // "+vin);
 
         values=new ContentValues();
         values.put("volume", 1);
         values.put("idvin", vin);
 
-        db.insert("bouteille", null, values);
+        nb = db.insert("bouteille", null, values);
+
+        int bout = getIdBouteille(vin);
+
+        Log.d("createWine", "bouteille : "+nb+" // "+bout);
+
+        insertContenir(bout, idcave);
         Vin a = new Vin();
         a.setCouleur(coul);
         a.setRegion(reg);
@@ -729,9 +751,81 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return a;
     }
 
+    private void insertContenir(int bout, int idcave) {
+        int row[] = getRowContenir(bout, idcave);
+        if(row[0]==0)
+            insertRow(bout, idcave);
+        else
+            updateRow(bout,idcave, row[1]);
+    }
+
+    private void updateRow(int bout, int idcave, int qte) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("quantite", qte+1);
+
+        String args[] = {String.valueOf(bout), String.valueOf(idcave)};
+
+        db.update("contenir", values, "idbouteille = ? AND idcave = ?", args);
+    }
+
+    private void insertRow(int bout, int idcave) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("idbouteille", bout);
+        values.put("idcave", idcave);
+        values.put("quantite", 1);
+
+        db.insert("contenir", null, values);
+        db.close();
+    }
+
+    private int[] getRowContenir(int bout, int idcave) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int[] res = {0,0};
+        String selectQuery = "Select quantite, idbouteille, idcave from contenir where idbouteille = "+idcave;
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        //looping through all rows and checking name
+        if(c.moveToFirst()) {
+            do {
+                {
+                    if(c.getInt(c.getColumnIndex("idbouteille"))== bout) {
+                        res[0]=c.getInt(c.getColumnIndex("idbouteille"));
+                        res[1]=c.getInt(c.getColumnIndex("quantite"));
+                    }
+                }
+            } while(c.moveToNext());
+        }
+        c.close();
+        return res;
+    }
+
+    private int getIdBouteille(int vin) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "Select idbouteille, idvin from bouteille where idvin = "+vin;
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        //looping through all rows and checking name
+        if(c.moveToFirst()) {
+            do {
+                {
+                    if(c.getInt(c.getColumnIndex("idvin"))== vin) {
+                        return c.getInt(c.getColumnIndex("idbouteille"));
+                    }
+                }
+            } while(c.moveToNext());
+        }
+        c.close();
+        return 1;
+    }
+
     private int getIdVin(int apl) {
             SQLiteDatabase db = this.getReadableDatabase();
-            String selectQuery = "Select idvin from region where idapp like "+apl;
+            String selectQuery = "Select idapp, idvin from vin where idapp like "+apl;
             Cursor c = db.rawQuery(selectQuery, null);
 
             //looping through all rows and checking name
@@ -744,81 +838,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                     }
                 } while(c.moveToNext());
             }
+            c.close();
             return 1;
         }
-
-    /*
-
-    ///TODO
-    //Adding new Wine
-    public long createVin(Vin vin, Cave cave) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put("couleur", vin.getCouleur());
-        values.put("idcepage", vin.getCepage());
-        values.put("idapp", vin.getNom());
-
-        // insert row
-
-        long tag = db.insert("vin", null, values);
-
-        //get idcave
-
-        int caveid = getCaveId(cave.getName());
-
-        ContentValues content = new ContentValues();
-        content.put("idbouteille", tag);
-        content.put("idcave", caveid);
-        content.put("quantite", bout);
-
-    }
-
-    // Adding new contact
-    void addContact(Contact contact) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, contact.getName()); // Contact Name
-        values.put(KEY_PH_NO, contact.getPhoneNumber()); // Contact Phone
-
-        // Inserting Row
-        db.insert(TABLE_CONTACTS, null, values);
-        db.close(); // Closing database connection
-    }
-
-
-    // Updating single contact
-    public int updateContact(Contact contact) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, contact.getName());
-        values.put(KEY_PH_NO, contact.getPhoneNumber());
-
-        // updating row
-        return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(contact.getID()) });
-    }
-
-    // Deleting single contact
-    public void deleteContact(Contact contact) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
-                new String[] { String.valueOf(contact.getID()) });
-        db.close();
-    }
-
-
-    // Getting contacts Count
-    public int getContactsCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
-
-        // return count
-        return cursor.getCount();
-    }*/
-
 }

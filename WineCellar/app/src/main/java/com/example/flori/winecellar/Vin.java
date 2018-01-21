@@ -9,6 +9,16 @@ public class Vin {
 
     protected int idvin, idbouteille;
 
+    protected int qte;
+
+    public int getQte() {
+        return qte;
+    }
+
+    public void setQte(int qte) {
+        this.qte = qte;
+    }
+
     public int getIdvin() {
         return idvin;
     }

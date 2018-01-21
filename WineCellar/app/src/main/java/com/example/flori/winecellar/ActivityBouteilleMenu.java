@@ -25,9 +25,11 @@ import java.util.List;
 
 public class ActivityBouteilleMenu extends AppCompatActivity{
 
+    public static final String KEY_CAVE=".com.example.flori.Cellarium.Cave";
+
     ListView vue;
     DataBaseHandler db;
-    Cave cave;
+    Cave cave = new Cave("a");
     ArrayList<Vin> a;
     EditText et;
 
@@ -47,30 +49,7 @@ public class ActivityBouteilleMenu extends AppCompatActivity{
         cave = db.getCave(id);
         cave.setId(id);
 
-        db.onUpgrade(db.getWritableDatabase(), 1, 2);
-
         pop();
-
-        /*String[][] repertoire = new String[][]{
-                {"Bill Gates", "06 06 06 06 06"},
-                {"Niels Bohr", "05 05 05 05 05"},
-                {"Alexandre III de Macédoine", "04 04 04 04 04"}};
-
-        List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> element;
-        for(int i = 0 ; i < repertoire.length ; i++) {
-            element = new HashMap<String, String>();
-            element.put("text1", repertoire[i][0]);
-            element.put("text2", repertoire[i][1]);
-            liste.add(element);
-        }
-
-        ListAdapter adapter = new SimpleAdapter(this,
-                liste,
-                R.layout.cave_main,
-                new String[] {"text1", "text2"},
-                new int[] {R.id.textViewNom, R.id.textViewNb });
-        vue.setAdapter(adapter);*/
 
         vue.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -89,6 +68,7 @@ public class ActivityBouteilleMenu extends AppCompatActivity{
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityBouteilleMenu.this, ClassNewBouteillePopUp.class);
                 startActivity(intent);
+                intent.putExtra(KEY_CAVE, cave.getId());
                 pop();
             }
         });
@@ -128,20 +108,15 @@ public class ActivityBouteilleMenu extends AppCompatActivity{
             element.put("text1", a.get(i).getAppellation());
             element.put("text2", a.get(i).getRegion());
             element.put("text3", a.get(i).getCepage());
+            element.put("text4", String.valueOf(a.get(i).getQte()));
             liste.add(element);
         }
 
-        /*String[][] repertoire = new String[][]{
-                {"Bill Gates", "06 06 06 06 06"},
-                {"Niels Bohr", "05 05 05 05 05"},
-                {"Alexandre III de Macédoine", "04 04 04 04 04"}};*/
-
-
         ListAdapter adapter = new SimpleAdapter(this,
                 liste,
-                R.layout.cave_main,
-                new String[] {"text1", "text2", "text3"},
-                new int[] {R.id.textViewAPL, R.id.textViewRegion, R.id.textViewCepage });
+                R.layout.bouteille_main,
+                new String[] {"text1", "text2", "text3", "text4"},
+                new int[] {R.id.textViewAPL, R.id.textViewRegion, R.id.textViewCepage, R.id.textViewCouleur });
         vue.setAdapter(adapter);
     }
 

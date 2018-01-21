@@ -10,14 +10,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:text="Appellation"/>
 
         <Spinner android:id="@+id/cepageSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:spinnerMode="dialog"
             android:text="Cepage"/>
 
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="125dp"
             android:text="Region"
             android:spinnerMode="dialog"/>
 
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="175dp"
                 android:text="Region"
                 android:spinnerMode="dialog"/>
 
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="225dp"
         android:spinnerMode="dialog"
         android:text="Valid" />
 

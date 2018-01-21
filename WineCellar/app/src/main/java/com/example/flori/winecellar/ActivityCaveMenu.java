@@ -9,11 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ public class ActivityCaveMenu extends AppCompatActivity {
     ListView vue;
     DataBaseHandler db;
     ArrayList<Cave> a;
-    EditText et;
+    TextView tv;
     public static final String KEY_ID_CAVE=".com.id.cave.winecellar";
 
     @Override
@@ -38,38 +37,16 @@ public class ActivityCaveMenu extends AppCompatActivity {
 
         db = new DataBaseHandler(getApplicationContext());
 
-        db.onUpgrade(db.getWritableDatabase(), 1, 2);
-
         pop();
-
-        /*String[][] repertoire = new String[][]{
-                {"Bill Gates", "06 06 06 06 06"},
-                {"Niels Bohr", "05 05 05 05 05"},
-                {"Alexandre III de Macédoine", "04 04 04 04 04"}};
-
-        List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> element;
-        for(int i = 0 ; i < repertoire.length ; i++) {
-            element = new HashMap<String, String>();
-            element.put("text1", repertoire[i][0]);
-            element.put("text2", repertoire[i][1]);
-            liste.add(element);
-        }
-
-        ListAdapter adapter = new SimpleAdapter(this,
-                liste,
-                R.layout.cave_main,
-                new String[] {"text1", "text2"},
-                new int[] {R.id.textViewNom, R.id.textViewNb });
-        vue.setAdapter(adapter);*/
 
         vue.setOnItemClickListener(new AdapterView.OnItemClickListener()
                                    {
                                        @Override
                                        public void onItemClick (AdapterView < ? > parent, View view,int position, long id)
                                        {
+                                           tv =view.findViewById(R.id.textViewNom);
                                            Intent appInfo = new Intent(ActivityCaveMenu.this, ActivityBouteilleMenu.class);
-                                           int selected = db.getCaveId(view.findViewById(R.id.textViewNom).toString());
+                                           int selected = db.getCaveId(tv.getText().toString());
                                            appInfo.putExtra(KEY_ID_CAVE, selected);
                                            startActivity(appInfo);
                                        }
@@ -122,12 +99,6 @@ public class ActivityCaveMenu extends AppCompatActivity {
             element.put("text2", a.get(i).getDate());
             liste.add(element);
         }
-
-        /*String[][] repertoire = new String[][]{
-                {"Bill Gates", "06 06 06 06 06"},
-                {"Niels Bohr", "05 05 05 05 05"},
-                {"Alexandre III de Macédoine", "04 04 04 04 04"}};*/
-
 
         ListAdapter adapter = new SimpleAdapter(this,
                 liste,
